@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "sshRSAPublicKey": {
+            "value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD4Z0Io2Lgh5vLkaSBEtRiwvb91n5CxWnlu0BJBXDCfpKhNSb6AMnBdLKJMyilIn3LwRSW7jMcvaF+hx2/Ycyv/pPoPBbiegXMaAPB2RbSan3vp7J8eN+YxWRfe1u3Qxbp6peKPd3nwcGfZs7ViLNocw1s0s2pPfSFdhgWAiv3UbDDmU7hm0d43M9Mf1GtaLZf7BR9Cz8ghbSOe8fZEdZv+jfWhrGUH8ZcqXbI1FHy7j7nlSmKbDHS1x1VHi4zevHwcBPag+Vffs3nM7gljYXGAjF3KarOcMGyD/9VaDhjABQzM3s+3YHJ6ScttgneBcFpvFBZtwCKFirVDq27NsELwREjOvNArI9JRBXu6yzUIBfMzGijbFCXkcFgzX1ISHXWVYjGEvTXOHa0CQgPPTdQ6xqoLxpJQ2CtAG83wpnYVuFmNDXH+i0y6KBlkaz0EcAwruLIgn+zhYQK1UqJpjlx/dgFdxQxwu+vi9E4QySbW5XEBBY4kP2EmvyxT9lL262sn8tD1KfPVtNJ0sXS05Ld1JDST4rmaykP0jL9b60fsxVUHhsp18c1Nx0mxdx5HQh69xiPyfFc9zts7UE07hN0Q6+L84i4t26hiYebVEkjUc+s32z+6BoZ1/sBnxM+rsoP+yCkaiS5ZG/OBJHMU/ub/FdrVODDmTLcKKJ5K3WyiYw== lucia.glancho@alumnos.upm.es"
+        },
+        "spnClientId": {
+            "value": "f1a36c1c-5550-41e9-b04b-b012f1ae87fb"
+        },
+        "spnClientSecret": {
+            "value": "TCPMa14KY-PvNDsvzedK.1X.AdL~b.YQIL"
+        },
+        "spnTenantId": {
+            "value": "6afea85d-c323-4270-b69d-a4fb3927c254"
+        },
+        "windowsAdminUsername": {
+            "value": "lucia"
+        },
+        "windowsAdminPassword": {
+            "value": "ArcPassword123!!"
+        },
+        "myIpAddress": {
+            "value": "170.252.72.3"
+        },
+        "logAnalyticsWorkspaceName": {
+            "value": "AnalyticsAPPFunc"
+        },
+        "kubernetesVersion": {
+            "value": "1.19.11"
+        },
+        "dnsPrefix": {
+            "value": "arcappsvc"
+        },
+        "deployAppService": {
+            "value": false
+        },
+        "deployFunction": {
+            "value": true
+        },
+        "deployApiMgmt": {
+            "value": false
+	    },
+        "deployLogicApp": {
+            "value": false
+        },
+        "templateBaseUrl": {
+            "value": "https://raw.githubusercontent.com/microsoft/azure_arc/main/azure_arc_app_services_jumpstart/aks/arm_template/"
+        },
+        "adminEmail": {
+            "value": "lucia.glancho@alumnos.upm.es"
+        }
+    }
+}

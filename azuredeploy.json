@@ -114,18 +114,35 @@
     }
   },
   "variables": {
-    "clientVmTemplate":  "./clientVm.json",
-    "logAnalytics": "./logAnalytics.json"
+    "clientVmTemplateUrl": "[uri(parameters('templateBaseUrl'), 'clientVm.json')]",
+    "logAnalyticsUrl": "[uri(parameters('templateBaseUrl'), 'logAnalytics.json')]"
   },
   "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-10-01",
+      "name": "logAnalyticsDeployment",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[variables('logAnalyticsUrl')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "workspaceName": {
+            "value": "[parameters('logAnalyticsWorkspaceName')]"
+          }
+        }
+      }
+    },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-10-01",
       "name": "clientVmDeployment",
       "properties": {
         "mode": "Incremental",
-        "templateFile": {
-          "file": "[variables('clientVmTemplate')]",
+        "templateLink": {
+          "uri": "[variables('clientVmTemplateUrl')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -176,23 +193,6 @@
           },
           "adminEmail": {
             "value": "[parameters('adminEmail')]"
-          }
-        }
-      }
-    },
-    {
-      "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-10-01",
-      "name": "logAnalyticsDeployment",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-          "uri": "[variables('logAnalyticsUrl')]",
-          "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "workspaceName": {
-            "value": "[parameters('logAnalyticsWorkspaceName')]"
           }
         }
       }

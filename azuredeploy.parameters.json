@@ -45,7 +45,7 @@
             "value": false
         },
         "templateBaseUrl": {
-            "value": "https://raw.githubusercontent.com/microsoft/azure_arc/main/azure_arc_app_services_jumpstart/aks/arm_template/"
+            "value": "https://raw.githubusercontent.com/Luciagl8/Azure-Function/main/"
         },
         "adminEmail": {
             "value": "lucia.glancho@alumnos.upm.es"

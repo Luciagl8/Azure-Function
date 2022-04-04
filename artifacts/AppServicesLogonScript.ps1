@@ -18,6 +18,7 @@ az aks create --resource-group $env:resourceGroup `
               --generate-ssh-keys `
               --tags "Project=jumpstart_azure_arc_app_services" `
               --enable-addons monitoring
+              --node-count 1
 
 az aks get-credentials --resource-group $env:resourceGroup `
                        --name $env:clusterName `
@@ -131,7 +132,7 @@ Write-Host "Deploying App Service Kubernetes Environment. Hold tight, this might
 Write-Host "`n"
 $connectedClusterId = az connectedk8s show --name $env:clusterName --resource-group $env:resourceGroup --query id -o tsv
 $extensionId = az k8s-extension show --name $extensionName --cluster-type connectedClusters --cluster-name $env:clusterName --resource-group $env:resourceGroup --query id -o tsv
-$customLocationId = $(az customlocation create --name 'jumpstart-cl' --resource-group $env:resourceGroup --namespace appservices --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$env:USERNAME\.kube\config" --query id -o tsv)
+$customLocationId = $(az customlocation create --name 'function-cl' --resource-group $env:resourceGroup --namespace appservices --host-resource-id $connectedClusterId --cluster-extension-ids $extensionId --kubeconfig "C:\Users\$env:USERNAME\.kube\config" --query id -o tsv)
 az appservice kube create --resource-group $env:resourceGroup --name $kubeEnvironmentName --custom-location $customLocationId --static-ip "$staticIp" --location $env:azureLocation --output none 
 
 Do {

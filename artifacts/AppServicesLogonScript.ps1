@@ -11,12 +11,11 @@ Write-Host "`n"
 az aks create --resource-group $env:resourceGroup `
               --name $env:clusterName `
               --location $env:azureLocation `
-              --kubernetes-version $env:kubernetesVersion `
               --dns-name-prefix $env:dnsPrefix `
               --enable-aad `
               --enable-azure-rbac `
               --generate-ssh-keys `
-              --tags "Project=jumpstart_azure_arc_app_services" `
+              --tags "Project=azure_arc_app_services_function" `
               --enable-addons monitoring
               --node-count 1
 

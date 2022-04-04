@@ -16,7 +16,7 @@ az aks create --resource-group $env:resourceGroup `
               --enable-azure-rbac `
               --generate-ssh-keys `
               --tags "Project=azure_arc_app_services_function" `
-              --enable-addons monitoring
+              --enable-addons monitoring `
               --node-count 1
 
 az aks get-credentials --resource-group $env:resourceGroup `
@@ -74,8 +74,9 @@ Write-Host "`n"
 $env:KUBECONTEXT = kubectl config current-context
 $env:KUBECONFIG = "C:\Users\$env:adminUsername\.kube\config"
 
+
 # Create Kubernetes - Azure Arc Cluster
-az connectedk8s connect --name $connectedClusterName `
+az connectedk8s connect --name $env:clusterName `
                         --resource-group $env:resourceGroup `
                         --location $env:azureLocation `
                         --tags 'Project=jumpstart_azure_arc_app_services' `
@@ -98,7 +99,7 @@ $workspaceIdEnc = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($work
 $workspaceKeyEnc = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($workspaceKey))
 
 $extensionId = az k8s-extension create --resource-group $env:resourceGroup --name $extensionName --query id -o tsv `
-    --cluster-type connectedClusters -c $env:clusterName `
+    --cluster-type connectedClusters -c Arc-App-AKS-Connected `
     --extension-type 'Microsoft.Web.Appservice' --release-train stable --auto-upgrade-minor-version true `
     --scope cluster --release-namespace "$namespace" `
     --configuration-settings "Microsoft.CustomLocation.ServiceAccount=default"  `
@@ -123,7 +124,7 @@ Do {
 Do {
    Write-Host "Waiting for log-processor to become available. Hold tight, this might take a few minutes..."
    Start-Sleep -Seconds 15
-   $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  3 Running" -Quiet){"Ready!"}Else{"Nope"})
+   $logProcessorStatus = $(if(kubectl describe daemonset ($extensionName + "-k8se-log-processor") -n appservices | Select-String "Pods Status:  1 Running" -Quiet){"Ready!"}Else{"Nope"})
    } while ($logProcessorStatus -eq "Nope")
 
 Write-Host "`n"
